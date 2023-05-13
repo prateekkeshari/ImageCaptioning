@@ -7,6 +7,7 @@ import logging
 #remove the warning message in terminal
 logging.getLogger("transformers.generation_utils").setLevel(logging.ERROR)
 logging.getLogger("tokenizers").setLevel(logging.ERROR)
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 load_dotenv() 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') #replace with your openai api key. Generate a key on https://platform.openai.com/
