@@ -11,7 +11,7 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') #replace with your openai api key
 
 def collect_image_urls():
     image_urls = []
-    while len(image_urls) < 4:
+    while len(image_urls) < 4: #change this number to the number of images you want
         url = input(f"Enter image URL {len(image_urls) + 1} (at least 4 required): ")
         if url:
             image_urls.append(url)
