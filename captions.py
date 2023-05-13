@@ -9,7 +9,7 @@ logging.getLogger("transformers.generation_utils").setLevel(logging.ERROR)
 logging.getLogger("tokenizers").setLevel(logging.ERROR)
 
 load_dotenv() 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') #replace with your openai api key
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') #replace with your openai api key. Generate a key on https://platform.openai.com/
 
 def collect_image_urls():
     image_urls = []
