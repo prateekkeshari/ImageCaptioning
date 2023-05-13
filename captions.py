@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from langchain.document_loaders import ImageCaptionLoader
 from langchain.indexes import VectorstoreIndexCreator
 import logging
+
+#remove the warning message in terminal
 logging.getLogger("transformers.generation_utils").setLevel(logging.ERROR)
 logging.getLogger("tokenizers").setLevel(logging.ERROR)
 
