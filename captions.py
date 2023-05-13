@@ -1,10 +1,14 @@
 import os
+from dotenv import load_dotenv
 from langchain.document_loaders import ImageCaptionLoader
 from langchain.indexes import VectorstoreIndexCreator
 import logging
 logging.getLogger("transformers.generation_utils").setLevel(logging.ERROR)
 logging.getLogger("tokenizers").setLevel(logging.ERROR)
-os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+
+load_dotenv() 
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') #replace with your openai api key
+
 def collect_image_urls():
     image_urls = []
     while len(image_urls) < 4:
@@ -16,7 +20,7 @@ def collect_image_urls():
     return image_urls
 
 list_image_urls = collect_image_urls()
-os.environ['OPENAI_API_KEY'] = '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'
+
 loader = ImageCaptionLoader(path_images=list_image_urls)
 list_docs = loader.load()
 index = VectorstoreIndexCreator().from_loaders([loader])
