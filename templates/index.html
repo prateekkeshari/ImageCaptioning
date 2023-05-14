@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Image Captioning</title>
+    <title>Tiny Captions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
+  </head>
 <body>
     <div class="input-header">
         <input type="text" id="image_url" name="image_url" placeholder="Enter image URL" required oninput="previewImage()">
@@ -20,11 +22,11 @@
       </div>
               
         <div id="caption_div" class="right-column empty-state">
-            This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.
+          “Everything will be okay in the end. If its not okay, its not the end.” - John Lennon.
         </div>
     </div>
     <div class="footer">
-        Built with 💜 by Prateek Keshari
+        Built with ♥️ by Prateek Keshari
         <div class="social-links">
           <a href="https://www.linkedin.com/in/prateekkeshari" target="_blank">LinkedIn</a>
           <a href="https://www.twitter.com/prkeshari" target="_blank">Twitter</a>

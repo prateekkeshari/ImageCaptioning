@@ -4,7 +4,6 @@ from flask import Flask, jsonify, request, render_template
 import os
 import validators
 import requests
-import imghdr
 
 app = Flask(__name__)
 
@@ -38,7 +37,7 @@ def generate():
         loader = ImageCaptionLoader(path_images=[image_url])
         list_docs = loader.load()
         index = VectorstoreIndexCreator().from_loaders([loader])
-        result = index.query('describe this image in 3 ways.')
+        result = index.query('Generate a long and descriptive with at least 3 sentences Instagram caption describing this image in first person. If a place is recognized, mention it. Include one emoji.')
         return jsonify({'caption': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500

@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     width: 80%;
-    height: 8vh;
+    height: 6vh;
     border-radius: 50px;
     max-width: 666px;
     background: #252424;
@@ -50,7 +50,7 @@
   
   .input-header button[type="submit"] {
     width: 40%;
-    height: 8vh;
+    height: 6vh;
     max-height: 79px;
     background: #101011;
     border-radius: 50px;

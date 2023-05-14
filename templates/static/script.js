@@ -19,7 +19,7 @@ function generateCaption() {
 
   // Perform image URL validation
   if (!validateImageUrl(imageUrl)) {
-    captionDiv.innerHTML = "Oops! Invalid image URL.";
+    captionDiv.innerHTML = "Oops 😥! That looks like an invalid image URL. Supported images are .jpg, .jpeg, and .png.";
     captionDiv.classList.add("error");
     captionDiv.classList.remove("generated"); // Remove generated state class
     return;
@@ -43,12 +43,12 @@ function generateCaption() {
           captionDiv.classList.add("generated"); // Apply generated state class
           captionDiv.classList.remove("error"); // Remove error state class
         } else {
-          captionDiv.innerHTML = "Failed to generate caption.";
+          captionDiv.innerHTML = "Failed to generate description.";
           captionDiv.classList.remove("generated"); // Remove generated state class
           captionDiv.classList.add("error"); // Apply error state class
         }
       } else {
-        captionDiv.innerHTML = "Error generating caption.";
+        captionDiv.innerHTML = "Error generating description.";
         captionDiv.classList.remove("generated"); // Remove generated state class
         captionDiv.classList.add("error"); // Apply error state class
       }
