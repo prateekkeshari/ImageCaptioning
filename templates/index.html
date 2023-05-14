@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Captioning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+    /* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Header */
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 8vh;
+  border-radius: 50px;
+  max-width: 666px;
+  background: #252424;
+  padding: 0 0 0 32px;
+  position: fixed;
+  top: 50px;
+}
+
+.input-header input[type="text"] {
+  background: none;
+  border: none;
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 31px;
+  text-align: center;
+  color: #FFFFFF;
+  width: 100%;
+  text-align: left;
+}
+
+.input-header input[type="text"]:focus {
+  outline: none;
+}
+
+.input-header button[type="submit"] {
+  width: 40%;
+  height: 8vh;
+  max-height: 79px;
+  background: #101011;
+  border-radius: 50px;
+  font-family: 'Syne', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+}
+
+.input-header button[type="submit"]:hover {
+  box-shadow: 0 2px 8px rgba(84, 23, 165, 0.864);
+  transition: box-shadow 0.3s ease;
+}
+
+
+/* Main content */
+.columns {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  max-width: 1200px;
+  height: 60vh;
+  max-height: 700px;
+  margin-top: 8vh;
+  margin-bottom: 5vh;
+}
+
+.left-column {
+  flex: 1;
+  padding: 20px;
+  position: relative;
+  margin-right: 50px;
+}
+
+.left-column img {
+  max-width: 100%;
+  max-height: 600px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 41px;
+  color: #FFFFFF;
+}
+
+
+.right-column.empty-state {
+  font-family: 'Flow Circular', sans-serif;
+}
+
+/* Footer */
+.footer {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  color: #FFFFFF;
+  height: 10vh;
+  max-height: 79px;
+  position: fixed;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 400px;
+}
+
+.right-column.empty-state {
+  font-family: 'Flow Circular', sans-serif;
+}
+
+.right-column.loading {
+  animation: pulse 1s infinite;
+}
+
+.loading {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="input-header">
+        <input type="text" id="image_url" name="image_url" placeholder="Enter image URL" required oninput="previewImage()">
+        <button type="submit" onclick="generateCaption()"> ✨ Generate</button>
+    </div>
+    <div class="columns">
+        <div class="left-column">
+            <div class="image-container">
+                <img id="image_preview" src="" alt="">
+            </div>
+        </div>        
+        <div id="caption_div" class="right-column empty-state">
+            This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.
+        </div>
+    </div>
+    <div class="footer">
+        Built with 💜 by Prateek Keshari
+    </div>
+
+    <script>
+        function previewImage() {
+          var imagePreview = document.getElementById("image_preview");
+          var imageUrl = document.getElementById("image_url").value;
+          if (imageUrl === "") {
+            imagePreview.src = "https://images.pexels.com/photos/4452215/pexels-photo-4452215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+          } else {
+            imagePreview.src = imageUrl;
+          }
+        }
+      
+        function generateCaption() {
+  var imageUrl = document.getElementById("image_url").value;
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/generate");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  // Add this line to show the loading state
+  var captionDiv = document.getElementById("caption_div");
+  captionDiv.innerHTML = " This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.";
+  captionDiv.classList.add("loading");
+
+  xhr.onreadystatechange = function() {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      var response = JSON.parse(this.responseText);
+      captionDiv.innerHTML = response.caption;
+      captionDiv.classList.remove("empty-state");
+      captionDiv.classList.remove("loading");
+    }
+  };
+  xhr.send("image_url=" + encodeURIComponent(imageUrl));
+}
+
+
+
+
+      
+        window.addEventListener("load", function() {
+          previewImage();
+        });
+      </script>
+      
+</body>
+</html>
