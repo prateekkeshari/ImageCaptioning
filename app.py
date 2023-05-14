@@ -4,6 +4,10 @@ from flask import Flask, jsonify, request, render_template
 import os
 
 app = Flask(__name__)
+
+# Set the static folder for Flask to serve static files from
+app.static_folder = 'templates/static'
+
 list_image_urls = []
 index = None
 
