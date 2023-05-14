@@ -13,7 +13,7 @@
 
 body {
   font-family: 'Syne', sans-serif;
-  background-color: #000000;
+  background: #000000;  /* fallback for old browsers */
   margin: 0;
   padding: 0;
   display: flex;
@@ -73,10 +73,16 @@ body {
   cursor: pointer;
 }
 
-.input-header button[type="submit"]:hover {
-  box-shadow: 0 2px 8px rgba(84, 23, 165, 0.864);
-  transition: box-shadow 0.3s ease;
+.input-header button[type="submit"] {
+  transition: transform 0.3s ease;
 }
+
+.input-header button[type="submit"]:hover {
+  transform: translateX(-2px) scale(0.95);
+}
+
+
+
 
 
 /* Main content */
@@ -191,7 +197,7 @@ body {
 <body>
     <div class="input-header">
         <input type="text" id="image_url" name="image_url" placeholder="Enter image URL" required oninput="previewImage()">
-        <button type="submit" onclick="generateCaption()"> ✨ Generate</button>
+        <button type="submit" onclick="generateCaption()"> 🪄 Generate</button>
     </div>
     <div class="columns">
         <div class="left-column">
