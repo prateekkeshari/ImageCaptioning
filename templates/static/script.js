@@ -1,41 +1,70 @@
 function previewImage() {
-    var imagePreview = document.getElementById("image_preview");
-    var imageUrl = document.getElementById("image_url").value;
-    if (imageUrl === "") {
-      imagePreview.src = "https://images.pexels.com/photos/4452215/pexels-photo-4452215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-    } else {
-      imagePreview.src = imageUrl;
-    }
+  var imagePreview = document.getElementById("image_preview");
+  var imageUrl = document.getElementById("image_url").value;
+  if (!validateImageUrl(imageUrl)) {
+    imageUrl = defaultImageUrl;
   }
-  
-  function generateCaption() {
-    var imageUrl = document.getElementById("image_url").value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/generate");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  
-    var captionDiv = document.getElementById("caption_div");
-    captionDiv.innerHTML = "This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.";
-    captionDiv.classList.add("loading");
-    captionDiv.classList.add("empty-state");
-  
-    xhr.onreadystatechange = function() {
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+
+  imagePreview.src = imageUrl;
+}
+
+
+function generateCaption() {
+  var imageUrl = document.getElementById("image_url").value;
+  var captionDiv = document.getElementById("caption_div");
+
+  // Reset previous error message
+  captionDiv.innerHTML = "";
+  captionDiv.classList.remove("error");
+
+  // Perform image URL validation
+  if (!validateImageUrl(imageUrl)) {
+    captionDiv.innerHTML = "Oops! ";
+    captionDiv.classList.add("error");
+    captionDiv.classList.remove("generated"); // Remove generated state class
+    return;
+  }
+
+  // Proceed with generating caption
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/generate");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  captionDiv.innerHTML = "Generating caption...";
+  captionDiv.classList.add("loading");
+
+  xhr.onreadystatechange = function() {
+    if (this.readyState === XMLHttpRequest.DONE) {
+      if (this.status === 200) {
         var response = JSON.parse(this.responseText);
         if (response && response.caption) {
           captionDiv.innerHTML = response.caption;
-          captionDiv.classList.remove("empty-state");
+          captionDiv.classList.add("generated"); // Apply generated state class
+          captionDiv.classList.remove("error"); // Remove error state class
         } else {
           captionDiv.innerHTML = "Failed to generate caption.";
+          captionDiv.classList.remove("generated"); // Remove generated state class
+          captionDiv.classList.add("error"); // Apply error state class
         }
-        captionDiv.classList.remove("loading");
+      } else {
+        captionDiv.innerHTML = "Error generating caption.";
+        captionDiv.classList.remove("generated"); // Remove generated state class
+        captionDiv.classList.add("error"); // Apply error state class
       }
+      captionDiv.classList.remove("loading");
     }
-  
-    xhr.send("image_url=" + encodeURIComponent(imageUrl));
   }
-  
-  window.addEventListener("load", function() {
-    previewImage();
-  });
-  
+
+  xhr.send("image_url=" + encodeURIComponent(imageUrl));
+}
+
+function validateImageUrl(imageUrl) {
+  // Perform image URL validation logic
+  // Customize this regular expression based on your specific requirements
+  var imageExtensions = /\.(jpeg|jpg|png|gif)(\?|$)/i;
+  return imageExtensions.test(imageUrl);
+}
+
+window.addEventListener("load", function() {
+  previewImage();
+});

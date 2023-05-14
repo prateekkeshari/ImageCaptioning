@@ -194,4 +194,13 @@
       opacity: 0.2;
     }
   }
+/* Error state */
+.right-column.error {
+  font-family: 'Syne', sans-serif;
+}
+
+/* Caption generated state */
+.right-column.generated {
+  font-family: 'Syne', sans-serif;
+}
   
