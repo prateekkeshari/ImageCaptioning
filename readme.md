@@ -1,6 +1,6 @@
 # Image Captioning using Langchain
 
-This code performs image captioning using Langchain, a Python package for natural language processing and machine learning. The code uses an image caption loader to load captions for a set of images, and then creates a vectorstore index to enable fast querying of captions based on user input.
+This code performs image captioning using Langchain, a Python package for natural language processing and machine learning. The code uses an image caption loader to load captions for a set of images, and then creates a vectorstore index to enable fast querying of captions based on user input. The loader uses the loader utilizes the pre-trained [Salesforce BLIP image captioning model](https://huggingface.co/Salesforce/blip-image-captioning-base)
 
 ## Requirements
 
