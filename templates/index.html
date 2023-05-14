@@ -255,24 +255,27 @@ body {
 
   // Add this line to show the loading state
   var captionDiv = document.getElementById("caption_div");
-  captionDiv.innerHTML = " This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.";
+  captionDiv.innerHTML = "This GetYourGuide experience is an image of kayakers in a cave, surrounded by beautiful rock formations and illuminated by natural light. The kayakers are wearing life jackets and paddling in the crystal clear water. Book now on https://getyourguide.com.";
   captionDiv.classList.add("loading");
+  captionDiv.classList.add("empty-state"); // Add this line
 
   xhr.onreadystatechange = function() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var response = JSON.parse(this.responseText);
-      captionDiv.innerHTML = response.caption;
-      captionDiv.classList.remove("empty-state");
+      if (response && response.caption) {
+        captionDiv.innerHTML = response.caption;
+        captionDiv.classList.remove("empty-state"); // Remove this line
+      } else {
+        captionDiv.innerHTML = "Failed to generate caption.";
+      }
       captionDiv.classList.remove("loading");
     }
-  };
+  }
+
+  // Add this line to send the request with the image URL
   xhr.send("image_url=" + encodeURIComponent(imageUrl));
 }
 
-
-
-
-      
         window.addEventListener("load", function() {
           previewImage();
         });
