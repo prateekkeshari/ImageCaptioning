@@ -164,6 +164,25 @@ body {
   transform: translateX(-50%);
   width: 80%;
   max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 666px;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+.social-links a {
+  margin-left: 16px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #b08dc7;
 }
 
 .right-column.empty-state {
@@ -191,7 +210,6 @@ body {
 }
 
 
-
     </style>
 </head>
 <body>
@@ -211,7 +229,12 @@ body {
     </div>
     <div class="footer">
         Built with 💜 by Prateek Keshari
-    </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/prateekkeshari" target="_blank">LinkedIn</a>
+          <a href="https://www.twitter.com/prkeshari" target="_blank">Twitter</a>
+        </div>
+      </div>
+      
 
     <script>
         function previewImage() {
