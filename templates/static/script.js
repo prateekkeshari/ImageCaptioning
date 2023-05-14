@@ -19,7 +19,7 @@ function generateCaption() {
 
   // Perform image URL validation
   if (!validateImageUrl(imageUrl)) {
-    captionDiv.innerHTML = "Oops! ";
+    captionDiv.innerHTML = "Oops! Invalid image URL.";
     captionDiv.classList.add("error");
     captionDiv.classList.remove("generated"); // Remove generated state class
     return;
@@ -32,6 +32,7 @@ function generateCaption() {
 
   captionDiv.innerHTML = "Generating caption...";
   captionDiv.classList.add("loading");
+  captionDiv.classList.remove("generated"); // Remove generated state class
 
   xhr.onreadystatechange = function() {
     if (this.readyState === XMLHttpRequest.DONE) {
