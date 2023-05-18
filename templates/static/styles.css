@@ -5,7 +5,7 @@
   
   body {
     font-family: 'Syne', sans-serif;
-    background: #000000;  /* fallback for old browsers */
+    background-image: linear-gradient(to right bottom, #0c0107, #0a0105, #080004, #050002, #030001, #080003, #0d0104, #110106, #19020c, #1e0311, #230416, #27051a);
     margin: 0;
     padding: 0;
     display: flex;
@@ -138,7 +138,7 @@
     font-family: 'Syne';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 23px;
     text-align: center;
     color: #FFFFFF;
