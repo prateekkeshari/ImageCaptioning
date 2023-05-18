@@ -11,6 +11,7 @@ function previewImage() {
 
 function generateCaption() {
   var imageUrl = document.getElementById("image_url").value;
+  var question = document.getElementById("question").value;
   var captionDiv = document.getElementById("caption_div");
 
   // Reset previous error message
@@ -30,6 +31,11 @@ function generateCaption() {
   xhr.open("POST", "/generate");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
+  var data = "image_url=" + encodeURIComponent(imageUrl);
+  if (question) {
+    data += "&question=" + encodeURIComponent(question);
+  }
+
   captionDiv.innerHTML = "Generating caption...";
   captionDiv.classList.add("loading");
   captionDiv.classList.remove("generated"); // Remove generated state class
@@ -43,12 +49,12 @@ function generateCaption() {
           captionDiv.classList.add("generated"); // Apply generated state class
           captionDiv.classList.remove("error"); // Remove error state class
         } else {
-          captionDiv.innerHTML = "Failed to generate description.";
+          captionDiv.innerHTML = "Failed to generate caption.";
           captionDiv.classList.remove("generated"); // Remove generated state class
           captionDiv.classList.add("error"); // Apply error state class
         }
       } else {
-        captionDiv.innerHTML = "Error generating description.";
+        captionDiv.innerHTML = "Error generating caption.";
         captionDiv.classList.remove("generated"); // Remove generated state class
         captionDiv.classList.add("error"); // Apply error state class
       }
@@ -56,8 +62,9 @@ function generateCaption() {
     }
   }
 
-  xhr.send("image_url=" + encodeURIComponent(imageUrl));
+  xhr.send(data);
 }
+
 
 function validateImageUrl(imageUrl) {
   // Perform image URL validation logic
