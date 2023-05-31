@@ -31,8 +31,13 @@ OPENAI_API_KEY=<your-api-key>
 
 4. Run the Flask web app:
 
+run this if you want to just use the model without detailed descriptions
 ```bash
-python app.py
+python imagemodel.py
+```
+or run this f you want to just use the model _with_ detailed descriptions
+```bash
+python imageopenai.py
 ```
 
 ## Usage
