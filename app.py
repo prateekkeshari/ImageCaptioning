@@ -5,6 +5,8 @@ import requests
 import replicate
 from io import BytesIO
 
+os.environ['REPLICATE_API_TOKEN'] = 'r8_eD5Ixtz4I9DKECQLqWjUNzl9bTzICPm05IWw1'
+
 app = Flask(__name__)
 app.static_folder = 'templates/static'
 

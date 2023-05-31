@@ -37,7 +37,7 @@ def generate():
         loader = ImageCaptionLoader(path_images=[image_url])
         list_docs = loader.load()
         index = VectorstoreIndexCreator().from_loaders([loader])
-        result = index.query('Describe this image in 2 sentences. End with Book an unforgettable experience at www.getyourguide.com')
+        result = index.query('Describe this image in 2 sentences.')
         return jsonify({'caption': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
